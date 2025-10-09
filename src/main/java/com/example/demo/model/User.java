@@ -3,6 +3,7 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "users")  // ✅ Avoid reserved keyword
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
