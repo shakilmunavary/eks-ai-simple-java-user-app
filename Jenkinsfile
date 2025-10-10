@@ -19,12 +19,35 @@ pipeline {
             }
         }
 
-        stage('Check Docker Version') {
-            steps {
-                sh 'docker version'
-            }
-        }
+  stages {
+    stage('Docker Cleanup') {
+      steps {
+        script {
+          echo "🧹 Cleaning up Docker containers, images, and build cache..."
 
+          // Stop and remove all running containers
+          sh '''
+            docker ps -q | xargs -r docker stop
+            docker ps -aq | xargs -r docker rm
+          '''
+
+          // Remove all local images
+          sh '''
+            docker images -q | xargs -r docker rmi -f
+          '''
+
+          // Prune build cache and volumes
+          sh '''
+            docker builder prune -f
+            docker volume prune -f
+          '''
+
+          echo "✅ Docker cleanup complete."
+        }
+      }
+    }
+
+      
         stage('Build Java App') {
             steps {
                 sh 'mvn clean package'
@@ -61,6 +84,7 @@ pipeline {
                         export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
                         aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER_NAME} --kubeconfig ${KUBECONFIG_PATH}
                         kubectl apply -f ${KUBE_MANIFEST} --validate=false
+                        kubectl get svc -n ${KUBE_NAMESPACE}
                         echo "✅ Kubeconfig updated"
                     '''
                 }
