@@ -19,35 +19,24 @@ pipeline {
             }
         }
 
-  stages {
-    stage('Docker Cleanup') {
-      steps {
-        script {
-          echo "🧹 Cleaning up Docker containers, images, and build cache..."
+        stage('Docker Cleanup') {
+            steps {
+                script {
+                    echo "🧹 Cleaning up Docker containers, images, and build cache..."
 
-          // Stop and remove all running containers
-          sh '''
-            docker ps -q | xargs -r docker stop
-            docker ps -aq | xargs -r docker rm
-          '''
+                    sh '''
+                        docker ps -q | xargs -r docker stop
+                        docker ps -aq | xargs -r docker rm
+                        docker images -q | xargs -r docker rmi -f
+                        docker builder prune -f
+                        docker volume prune -f
+                    '''
 
-          // Remove all local images
-          sh '''
-            docker images -q | xargs -r docker rmi -f
-          '''
-
-          // Prune build cache and volumes
-          sh '''
-            docker builder prune -f
-            docker volume prune -f
-          '''
-
-          echo "✅ Docker cleanup complete."
+                    echo "✅ Docker cleanup complete."
+                }
+            }
         }
-      }
-    }
 
-      
         stage('Build Java App') {
             steps {
                 sh 'mvn clean package'
@@ -71,7 +60,6 @@ pipeline {
             }
         }
 
-
         stage('Deploy to EKS') {
             steps {
                 withCredentials([
@@ -90,7 +78,6 @@ pipeline {
                 }
             }
         }
-
     }
 
     post {
