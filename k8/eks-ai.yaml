@@ -1,3 +1,4 @@
+
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -10,8 +11,7 @@ metadata:
   namespace: eks-ai
   labels:
     app: eks-ai
-spec:
-  replicas: 1
+spec:  replicas: 1
   selector:
     matchLabels:
       app: eks-ai
@@ -23,6 +23,7 @@ spec:
       containers:
       - name: eks-ai
         image: shakilahamed/eks-ai-simple-java-user-app:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         resources:
@@ -32,14 +33,6 @@ spec:
           limits:
             cpu: "500m"
             memory: "1Gi"
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 20
-          periodSeconds: 15
-          timeoutSeconds: 2
-          failureThreshold: 5
         livenessProbe:
           httpGet:
             path: /
