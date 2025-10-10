@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: eks-ai
-        image: shakilmunavary/eks-ai-simple-java-user-app:latest
+        image: shakilahamed/eks-ai-simple-java-user-app:latest
         ports:
         - containerPort: 8080
         resources:
