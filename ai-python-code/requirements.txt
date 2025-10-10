@@ -1,0 +1,10 @@
+flask
+requests
+python-dotenv
+kubernetes
+langchain
+openai
+langchain
+langchain-community
+faiss-cpu
+langchain-openai
