@@ -42,7 +42,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh '''
                         echo $PASSWORD | docker login -u $USERNAME --password-stdin
-                        docker push shakilmunavary/eks-ai-simple-java-user-app:latest
+                        docker push shakilahamed/eks-ai-simple-java-user-app:latest
                     '''
                 }
             }
