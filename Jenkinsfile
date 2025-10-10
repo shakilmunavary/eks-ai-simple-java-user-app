@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "shakilmunavary/eks-ai-simple-java-user-app"
+        IMAGE_NAME = "shakilahamed/eks-ai-simple-java-user-app"
         IMAGE_TAG = "latest"
         KUBE_NAMESPACE = "eks-ai"
         DEPLOYMENT_NAME = "eks-ai"
