@@ -151,12 +151,3 @@ DispatcherServlet : Exiting from "ERROR" dispatch, status 404
 
 ---
 
-## 👨‍💻 Maintainer
-
-**Shakil Munavary**  
-Associate Director – DevOps Practice  
-Architect of agentic AI-powered automation for BFSI and regulated industries
-
----
-
-Would you like me to scaffold a matching `docs/architecture.md`, generate a stakeholder pitch deck, or create a one-pager PDF for executive presentations? I can also help you build a demo script or talking points for showcasing this solution live.
