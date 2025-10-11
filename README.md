@@ -1,5 +1,3 @@
-Absolutely, Shakil — here’s a comprehensive, stakeholder-ready `README.md` that showcases your AI-powered RCA dashboard as a sales-grade solution. It includes a full summary, architecture diagram, features, setup guide, metrics, and business impact. This is designed to impress both technical and executive audiences.
-
 ---
 
 # 🚀 EKS AI Dashboard – Intelligent RCA for Kubernetes Applications
