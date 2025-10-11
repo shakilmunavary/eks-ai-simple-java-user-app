@@ -25,7 +25,8 @@ Whether you're pitching AI in DevOps, onboarding new engineers, or resolving pro
 
 Here’s how the system flows:
 
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/7eb930f5-04ed-4655-84d8-df3c7dae6ee2" />
+<img width="1809" height="1024" alt="image" src="https://github.com/user-attachments/assets/ed5f33b2-e278-47a6-86c1-0a754dce26e9" />
+
 
 
 ---
