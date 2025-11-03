@@ -7,13 +7,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
-
 @RestController
 @RequestMapping("/weather")
 public class WeatherController {
+
     @Autowired
     private IndiaApiService indiaApiService;
+
+    @GetMapping("/ping")
+    public String ping() {
+        return "Weather module is alive";
+    }
 
     @GetMapping("/cities")
     public List<String> getTamilNaduCities() {
