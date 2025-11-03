@@ -1,4 +1,4 @@
-package com.example.weather.service;
+package com.example.service;
 
 import com.example.weather.model.WeatherData;
 import org.springframework.beans.factory.annotation.Value;
