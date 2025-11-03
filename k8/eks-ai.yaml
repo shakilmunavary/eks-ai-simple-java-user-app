@@ -23,3 +23,55 @@ data:
 # ----------------------------------------
 apiVersion: apps/v1
 kind: Deployment
+metadata:
+  name: eks-ai-deployment
+  namespace: eks-ai
+  labels:
+    app: eks-ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eks-ai
+  template:
+    metadata:
+      labels:
+        app: eks-ai
+    spec:
+      containers:
+        - name: eks-ai
+          image: shakilahamed/eks-ai-simple-java-user-app:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: INDIAAPI_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: indiaapi-secret
+                  key: INDIAAPI_KEY
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+      restartPolicy: Always
+---
+# ----------------------------------------
+# Service
+# ----------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: eks-ai-service
+  namespace: eks-ai
+spec:
+  selector:
+    app: eks-ai
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
