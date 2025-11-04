@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
         - name: eks-ai
-          image: shakilahamed/eks-ai-simple-java-user-app:latest
+          image: shakilahamed/eks-ai-simple-java-user-app123:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
