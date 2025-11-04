@@ -1,4 +1,3 @@
-
 import os
 import shutil
 import subprocess
@@ -74,7 +73,8 @@ def load_code_files(repo_path):
                 except UnicodeDecodeError:
                     with open(full_path, "r", encoding="latin-1") as f:
                         content = f.read()
-                docs.append(Document(page_content=content, metadata={"source": full_path}))
+                tag = "[Controller]" if file.endswith(".java") else "[Config]"
+                docs.append(Document(page_content=f"{tag}\n{content}", metadata={"source": full_path}))
     return docs
 
 def index_repo():
@@ -82,6 +82,9 @@ def index_repo():
     if not validate_env():
         print("❌ Aborting due to environment misconfiguration.")
         return
+
+    if os.path.exists(DB_PATH):
+        shutil.rmtree(DB_PATH)
 
     clone_repo()
     raw_docs = load_code_files(REPO_PATH)
