@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User List</title>
+</head>
+<body>
+    <h2>User List</h2>
+    <ul>
+        <th:block th:each="user : ${users}">
+            <li th:text="${user.name} + ' (' + ${user.email} + ')'"></li>
+        </th:block>
+    </ul>
+</body>
+</html>
