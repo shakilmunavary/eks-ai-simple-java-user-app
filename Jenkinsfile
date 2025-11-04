@@ -71,8 +71,8 @@ pipeline {
                         export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
                         export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
                         aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER_NAME} --kubeconfig ${KUBECONFIG_PATH}
-                        kubectl delete -f ${KUBE_MANIFEST} --validate=false
-                        kubectl apply -f ${KUBE_MANIFEST} 
+                        kubectl delete -f ${KUBE_MANIFEST} 
+                        kubectl apply -f ${KUBE_MANIFEST} --validate=false
                         kubectl get svc -n ${KUBE_NAMESPACE}
                         echo "✅ Kubeconfig updated"
                     '''
