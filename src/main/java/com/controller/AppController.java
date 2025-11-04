@@ -48,9 +48,9 @@ public class AppController {
     }
 
     @ResponseBody
-    @GetMapping("/weather/{city}")
-    public WeatherData getWeather(@PathVariable String city) {
-        return indiaApiService.getWeatherForCity(city);
+    @GetMapping("/weather/{location}")
+    public WeatherData getWeather(@PathVariable String location) {
+        return indiaApiService.getWeatherForCity(location);
     }
 
     @ResponseBody
