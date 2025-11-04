@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Weather for [[${weather.location}]]</title>
+</head>
+<body>
+    <h2>Weather Report</h2>
+    <table border="1">
+        <tr>
+            <th>Location</th>
+            <td th:text="${weather.location != null ? weather.location : 'Unknown'}"></td>
+        </tr>
+        <tr>
+            <th>Temperature</th>
+            <td th:text="${weather.temperature} + ' °C'"></td>
+        </tr>
+        <tr>
+            <th>Condition</th>
+            <td th:text="${weather.condition}"></td>
+        </tr>
+    </table>
+    <br>
+    <a href="/weather/cities/view">← Back to Cities</a>
+</body>
+</html>
