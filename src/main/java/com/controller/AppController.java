@@ -20,12 +20,9 @@ public class AppController {
     @Autowired
     private IndiaApiService indiaApiService;
 
-    // User endpoints
-    @GetMapping("/list")
-    public String showUsers(Model model) {
-        List<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
-        return "user-list";
+    @GetMapping("/")
+    public String home(Model model) {
+        return "home";
     }
 
     @GetMapping("/add")
@@ -40,7 +37,20 @@ public class AppController {
         return "redirect:/list";
     }
 
-    // Weather endpoints
+    @GetMapping("/list")
+    public String showUsers(Model model) {
+        List<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
+        return "user-list";
+    }
+
+    @GetMapping("/weather/cities/view")
+    public String showCityLinks(Model model) {
+        List<String> cities = indiaApiService.getTamilNaduCities();
+        model.addAttribute("cities", cities);
+        return "weather-cities";
+    }
+
     @ResponseBody
     @GetMapping("/weather/cities")
     public List<String> getTamilNaduCities() {
