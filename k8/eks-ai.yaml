@@ -16,7 +16,7 @@ metadata:
   namespace: eks-ai
 type: Opaque
 data:
-  INDIAAPI_KEY: 1212121  # base64-encoded key
+  INDIAAPI_KEY: c2stbGl2ZS1zdWVBSUJPaWd2OUVMZUxMa3p2b1ZGQ0owSGxJV2pjRVJsT09sRGg0  # base64-encoded key
 ---
 # ----------------------------------------
 # Deployment
