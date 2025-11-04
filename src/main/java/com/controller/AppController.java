@@ -20,11 +20,13 @@ public class AppController {
     @Autowired
     private IndiaApiService indiaApiService;
 
+    // Home page
     @GetMapping("/")
     public String home(Model model) {
         return "home";
     }
 
+    // Add user
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("user", new User());
@@ -37,6 +39,7 @@ public class AppController {
         return "redirect:/list";
     }
 
+    // List users
     @GetMapping("/list")
     public String showUsers(Model model) {
         List<User> users = userRepository.findAll();
@@ -44,6 +47,7 @@ public class AppController {
         return "user-list";
     }
 
+    // Weather cities list (HTML view)
     @GetMapping("/weather/cities/view")
     public String showCityLinks(Model model) {
         List<String> cities = indiaApiService.getTamilNaduCities();
@@ -51,18 +55,29 @@ public class AppController {
         return "weather-cities";
     }
 
-    @ResponseBody
-    @GetMapping("/weather/cities")
-    public List<String> getTamilNaduCities() {
-        return indiaApiService.getTamilNaduCities();
-    }
-
+    // Weather data for a city (JSON)
     @ResponseBody
     @GetMapping("/weather/{location}")
     public WeatherData getWeather(@PathVariable String location) {
         return indiaApiService.getWeatherForCity(location);
     }
 
+    // Weather data for a city (HTML view)
+    @GetMapping("/weather/view/{location}")
+    public String showWeatherHtml(@PathVariable String location, Model model) {
+        WeatherData data = indiaApiService.getWeatherForCity(location);
+        model.addAttribute("weather", data);
+        return "weather-view";
+    }
+
+    // Raw city list (JSON)
+    @ResponseBody
+    @GetMapping("/weather/cities")
+    public List<String> getTamilNaduCities() {
+        return indiaApiService.getTamilNaduCities();
+    }
+
+    // Health check
     @ResponseBody
     @GetMapping("/weather/ping")
     public String ping() {
