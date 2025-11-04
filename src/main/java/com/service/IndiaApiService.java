@@ -24,7 +24,7 @@ public class IndiaApiService {
     }
 
     public WeatherData getWeatherForCity(String city) {
-        String url = baseUrl + "/current?city=" + city;
+        String url = baseUrl + "?location=" + city;
         HttpHeaders headers = new HttpHeaders();
         headers.set("x-api-key", apiKey);
         HttpEntity<Void> request = new HttpEntity<>(headers);
@@ -36,7 +36,7 @@ public class IndiaApiService {
         } catch (Exception e) {
             System.err.println("❌ Weather API call failed: " + e.getMessage());
             WeatherData fallback = new WeatherData();
-            fallback.setCity(city);
+            fallback.setLocation(city);
             fallback.setTemperature("N/A");
             fallback.setCondition("Unavailable");
             return fallback;
