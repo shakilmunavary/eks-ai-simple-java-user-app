@@ -23,8 +23,8 @@ public class IndiaApiService {
         return List.of("Chennai", "Madurai", "Coimbatore", "Tiruchirappalli", "Salem");
     }
 
-    public WeatherData getWeatherForCity(String city) {
-        String url = baseUrl + "?location=" + city;
+    public WeatherData getWeatherForCity(String location) {
+        String url = baseUrl + "?location=" + location;
         HttpHeaders headers = new HttpHeaders();
         headers.set("x-api-key", apiKey);
         HttpEntity<Void> request = new HttpEntity<>(headers);
@@ -36,7 +36,7 @@ public class IndiaApiService {
         } catch (Exception e) {
             System.err.println("❌ Weather API call failed: " + e.getMessage());
             WeatherData fallback = new WeatherData();
-            fallback.setLocation(city);
+            fallback.setLocation(location);
             fallback.setTemperature("N/A");
             fallback.setCondition("Unavailable");
             return fallback;
