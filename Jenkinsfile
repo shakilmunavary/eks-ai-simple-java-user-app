@@ -71,7 +71,11 @@ pipeline {
                         export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
                         export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
                         aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER_NAME} --kubeconfig ${KUBECONFIG_PATH}
-                        kubectl delete -f ${KUBE_MANIFEST} 
+                        if kubectl get namespace "${NAMESPACE}" > /dev/null 2>&1; then
+                          kubectl delete -f "${KUBE_MANIFEST}"
+                        else
+                          echo "⚠️ Namespace '${NAMESPACE}' does not exist. Skipping delete."
+                        fi
                         kubectl apply -f ${KUBE_MANIFEST} --validate=false
                         sleep 10
                         kubectl get svc -n ${KUBE_NAMESPACE}
