@@ -15,7 +15,10 @@
     <h2>Select a City</h2>
     <ul>
         <th:block th:each="city : ${cities}">
-            <li><a th:href="@{'/weather/' + ${city}}" th:text="${city}"></a></li>
+            <li>
+            <a th:href="@{'/weather/view/' + ${city}}" th:text="${city}"></a>
+            </li>
+
         </th:block>
     </ul>
 </body>
