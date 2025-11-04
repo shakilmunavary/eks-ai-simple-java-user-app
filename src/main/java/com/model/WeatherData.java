@@ -1,13 +1,13 @@
 package com.model;
 
 public class WeatherData {
-    private String city;
+    private String location;
     private String temperature;
     private String condition;
 
     // Getters and setters
-    public String getCity() { return city; }
-    public void setCity(String city) { this.city = city; }
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
 
     public String getTemperature() { return temperature; }
     public void setTemperature(String temperature) { this.temperature = temperature; }
