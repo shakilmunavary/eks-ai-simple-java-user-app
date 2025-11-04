@@ -73,6 +73,7 @@ pipeline {
                         aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER_NAME} --kubeconfig ${KUBECONFIG_PATH}
                         kubectl delete -f ${KUBE_MANIFEST} 
                         kubectl apply -f ${KUBE_MANIFEST} --validate=false
+                        sleep 10
                         kubectl get svc -n ${KUBE_NAMESPACE}
                         echo "✅ Kubeconfig updated"
                     '''
