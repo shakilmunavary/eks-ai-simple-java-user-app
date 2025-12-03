@@ -76,7 +76,8 @@ pipeline {
                         else
                           echo "⚠️ Namespace '${NAMESPACE}' does not exist. Skipping delete."
                         fi
-                        kubectl apply -f ${KUBE_MANIFEST} --validate=false
+                        # kubectl apply -f ${KUBE_MANIFEST} --validate=false
+                        kubectl replace --force -f ${KUBE_MANIFEST} 
                         sleep 10
                         kubectl get svc -n ${KUBE_NAMESPACE}
                         echo "✅ Kubeconfig updated"
