@@ -64,9 +64,13 @@ public class AppController {
 
     // Weather data for a city (HTML view)
     @GetMapping("/weather/view/{location}")
-    public String showWeatherHtml(@PathVariable String location, Model model) {
+    public String showWeatherHtml(@PathVariable("location") String location, Model model) {
         WeatherData data = indiaApiService.getWeatherForCity(location);
+
+        // Add both weather data and raw city name from URL
         model.addAttribute("weather", data);
+        model.addAttribute("cityName", location);
+
         return "weather-view";
     }
 
