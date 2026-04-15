@@ -16,7 +16,7 @@ metadata:
   namespace: eks-ai
 type: Opaque
 data:
-  GITHUB_TOKEN: <YOUR_BASE64_ENCODED_GITHUB_TOKEN>  # Replace with: echo -n 'your-token' | base64
+  GITHUB_TOKEN: Z2hwX3F6UFk5V3VaNmdWc2ZTZG5xTTVJWGhvNFZuZE5sejFrMlNqVg==
 ---
 # ----------------------------------------
 # Deployment
