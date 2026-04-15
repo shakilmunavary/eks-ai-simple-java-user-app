@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout Source') {
             steps {
-                git url: 'https://github.com/shakilmunavary/eks-ai-simple-java-user-app.git', branch: 'main'
+                git url: 'https://github.com/shakilmunavary/eks-ai-simple-java-user-app.git', branch: 'aws_deops_ai_test'
             }
         }
 
