@@ -1,9 +1,9 @@
 package com.controller;
 
 import com.model.User;
-import com.model.WeatherData;
+import com.model.GitHubRepo;
 import com.repository.UserRepository;
-import com.service.IndiaApiService;
+import com.service.GitHubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ public class AppController {
     private UserRepository userRepository;
 
     @Autowired
-    private IndiaApiService indiaApiService;
+    private GitHubService gitHubService;
 
     // Home page
     @GetMapping("/")
@@ -47,44 +47,41 @@ public class AppController {
         return "user-list";
     }
 
-    // Weather cities list (HTML view)
-    @GetMapping("/weather/cities/view")
-    public String showCityLinks(Model model) {
-        List<String> cities = indiaApiService.getTamilNaduCities();
-        model.addAttribute("cities", cities);
-        return "weather-cities";
+    // GitHub repos list (HTML view)
+    @GetMapping("/github/repos/view")
+    public String showRepoList(Model model) {
+        List<GitHubRepo> repos = gitHubService.getUserRepos();
+        model.addAttribute("repos", repos);
+        return "github-repos";
     }
 
-    // Weather data for a city (JSON)
+    // GitHub repo details (JSON)
     @ResponseBody
-    @GetMapping("/weather/{location}")
-    public WeatherData getWeather(@PathVariable String location) {
-        return indiaApiService.getWeatherForCity(location);
+    @GetMapping("/github/repo/{repoName}")
+    public GitHubRepo getRepo(@PathVariable String repoName) {
+        return gitHubService.getRepoByName(repoName);
     }
 
-    // Weather data for a city (HTML view)
-    @GetMapping("/weather/view/{location}")
-    public String showWeatherHtml(@PathVariable("location") String location, Model model) {
-        WeatherData data = indiaApiService.getWeatherForCity(location);
-
-        // Add both weather data and raw city name from URL
-        model.addAttribute("weather", data);
-        model.addAttribute("cityName", location);
-
-        return "weather-view";
+    // GitHub repo details (HTML view)
+    @GetMapping("/github/repo/view/{repoName}")
+    public String showRepoHtml(@PathVariable("repoName") String repoName, Model model) {
+        GitHubRepo repo = gitHubService.getRepoByName(repoName);
+        model.addAttribute("repo", repo);
+        model.addAttribute("repoName", repoName);
+        return "github-repo-view";
     }
 
-    // Raw city list (JSON)
+    // Raw repo list (JSON)
     @ResponseBody
-    @GetMapping("/weather/cities")
-    public List<String> getTamilNaduCities() {
-        return indiaApiService.getTamilNaduCities();
+    @GetMapping("/github/repos")
+    public List<GitHubRepo> getAllRepos() {
+        return gitHubService.getUserRepos();
     }
 
     // Health check
     @ResponseBody
-    @GetMapping("/weather/ping")
+    @GetMapping("/github/ping")
     public String ping() {
-        return "Weather module is alive";
+        return "GitHub module is alive";
     }
 }
