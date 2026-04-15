@@ -7,16 +7,16 @@ metadata:
   name: eks-ai
 ---
 # ----------------------------------------
-# Secret for IndiaAPI Key
+# Secret for GitHub Token
 # ----------------------------------------
 apiVersion: v1
 kind: Secret
 metadata:
-  name: indiaapi-secret
+  name: github-secret
   namespace: eks-ai
 type: Opaque
 data:
-  INDIAAPI_KEY: c2stbGl2ZS1zdWVBSUJPaWd2OUVMZUxMa3p2b1ZGQ0owSGxJV2pjRVJsT09sRUg0  # base64-encoded key
+  GITHUB_TOKEN: <YOUR_BASE64_ENCODED_GITHUB_TOKEN>  # Replace with: echo -n 'your-token' | base64
 ---
 # ----------------------------------------
 # Deployment
@@ -45,11 +45,11 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: INDIAAPI_KEY
+            - name: GITHUB_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: indiaapi-secret
-                  key: INDIAAPI_KEY
+                  name: github-secret
+                  key: GITHUB_TOKEN
           resources:
             requests:
               memory: "512Mi"
