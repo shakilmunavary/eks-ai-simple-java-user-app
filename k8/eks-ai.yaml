@@ -16,7 +16,7 @@ metadata:
   namespace: eks-ai
 type: Opaque
 data:
-  GITHUB_TOKEN: Z2hwX3F6UFk5V3VaNmdWc2ZTZG5xTTVJWGhvNFZuZE5sejFrMlNqVg==
+  GITHUB_TOKEN: Z2hwX05FTzc4S3VSVDd5WG1MTEg3OXFndkVtSUdNb01TcDFxQ2lNNA==
 ---
 # ----------------------------------------
 # Deployment
