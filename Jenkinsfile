@@ -64,23 +64,34 @@ pipeline {
             steps {
                 withCredentials([
                     string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
-                    string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
+                    string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY'),
+                    string(credentialsId: 'GITHUB_FINE_GRAINED_TOKEN', variable: 'GITHUB_TOKEN')
                 ]) {
                     sh '''
                         echo "🔐 Updating kubeconfig for EKS cluster..."
                         export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
                         export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
                         aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER_NAME} --kubeconfig ${KUBECONFIG_PATH}
-                        if kubectl get namespace "${NAMESPACE}" > /dev/null 2>&1; then
-                          kubectl delete -f "${KUBE_MANIFEST}"
-                        else
-                          echo "⚠️ Namespace '${NAMESPACE}' does not exist. Skipping delete."
-                        fi
-                        # kubectl apply -f ${KUBE_MANIFEST} --validate=false
-                        kubectl replace --force -f ${KUBE_MANIFEST} 
+                        
+                        # Create namespace if it doesn't exist
+                        kubectl get namespace "${KUBE_NAMESPACE}" > /dev/null 2>&1 || kubectl create namespace "${KUBE_NAMESPACE}"
+                        
+                        # Create/update GitHub secret from Jenkins credential
+                        echo "🔑 Creating GitHub secret from Jenkins credentials..."
+                        kubectl delete secret github-secret -n ${KUBE_NAMESPACE} --ignore-not-found
+                        kubectl create secret generic github-secret \
+                            --from-literal=GITHUB_TOKEN="${GITHUB_TOKEN}" \
+                            -n ${KUBE_NAMESPACE}
+                        
+                        # Deploy application
+                        kubectl apply -f ${KUBE_MANIFEST}
+                        
+                        # Restart deployment to pick up new secret
+                        kubectl rollout restart deployment eks-ai-deployment -n ${KUBE_NAMESPACE}
+                        
                         sleep 10
                         kubectl get svc -n ${KUBE_NAMESPACE}
-                        echo "✅ Kubeconfig updated"
+                        echo "✅ Deployment complete"
                     '''
                 }
             }
