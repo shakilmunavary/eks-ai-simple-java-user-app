@@ -7,18 +7,6 @@ metadata:
   name: eks-ai
 ---
 # ----------------------------------------
-# Secret for GitHub Token
-# ----------------------------------------
-apiVersion: v1
-kind: Secret
-metadata:
-  name: github-secret
-  namespace: eks-ai
-type: Opaque
-data:
-  GITHUB_TOKEN: Z2l0aHViX3BhdF8xMUFFNkNBVUkwT2Fid3l4VUc3eVp6X3lKZDhPY2Vzb1NDR3R2a1ozdzlRSDgyazFlb1Q5eXVJZFVJV0dqcmJUQ2tXRVQ1Q05RWGpDSVdYbWlx
----
-# ----------------------------------------
 # Deployment
 # ----------------------------------------
 apiVersion: apps/v1
