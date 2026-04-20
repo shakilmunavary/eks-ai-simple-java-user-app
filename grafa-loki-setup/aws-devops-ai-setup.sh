@@ -42,14 +42,14 @@ AWS_ACCOUNT_ID="727646490021"
 EKS_CLUSTER_NAME="ai-eks-cluster"
 
 # GitHub Configuration - ADD YOUR TOKEN HERE!
-GITHUB_TOKEN="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"
+GITHUB_TOKEN="ghp_1122333"
 GITHUB_OWNER="shakilmunavary"
 GITHUB_REPO="eks-ai-simple-java-user-app"
 
 # ServiceNow Configuration
 SNOW_INSTANCE="dev375632"
 SNOW_USER="admin"
-SNOW_PASS="kNy2EbSz+@S3"
+SNOW_PASS="aadd"
 
 # Kubernetes Namespaces
 APP_NAMESPACE="eks-ai"
